@@ -8,6 +8,7 @@ const state = {
 const els = {
   dustCount: document.querySelector("#dustCount"),
   dustRate: document.querySelector("#dustRate"),
+  rankTitle: document.querySelector("#rankTitle"),
   tapPower: document.querySelector("#tapPower"),
   tapButton: document.querySelector("#tapButton"),
   collectorButton: document.querySelector("#collectorButton"),
@@ -40,6 +41,14 @@ function dustPerSecond() {
   return state.collectors * 0.4;
 }
 
+function rankTitle() {
+  if (state.dust >= 10000) return "大魔导师";
+  if (state.dust >= 2000) return "高级法师";
+  if (state.dust >= 500) return "正式法师";
+  if (state.dust >= 100) return "见习法师";
+  return "魔法学徒";
+}
+
 function format(value) {
   if (value < 1000) return Math.floor(value).toString();
   if (value < 1000000) return `${(value / 1000).toFixed(1)}K`;
@@ -61,7 +70,7 @@ function load() {
     const secondsAway = Math.max(0, (Date.now() - (saved.lastSeen || Date.now())) / 1000);
     const gain = Math.min(secondsAway, 60 * 60 * 6) * dustPerSecond();
     state.dust += gain;
-    els.offlineGain.textContent = `+${format(gain)} 星尘`;
+    els.offlineGain.textContent = `+${format(gain)} 魔力`;
   } catch {
     localStorage.removeItem(storageKey);
   }
@@ -73,9 +82,10 @@ function render() {
 
   els.dustCount.textContent = format(state.dust);
   els.dustRate.textContent = `+${dustPerSecond().toFixed(1)} / 秒`;
-  els.tapPower.textContent = `+${tapPower()} 星尘`;
-  els.collectorCost.textContent = `购买 ${format(nextCollectorCost)}`;
-  els.collectorOwned.textContent = `${state.collectors} 台`;
+  els.rankTitle.textContent = rankTitle();
+  els.tapPower.textContent = `+${tapPower()} 魔力`;
+  els.collectorCost.textContent = `招募 ${format(nextCollectorCost)}`;
+  els.collectorOwned.textContent = `${state.collectors} 名`;
   els.gloveCost.textContent = `升级 ${format(nextGloveCost)}`;
   els.gloveLevel.textContent = `等级 ${state.gloveLevel}`;
   els.collectorButton.disabled = state.dust < nextCollectorCost;
@@ -165,6 +175,6 @@ async function enableDevReload() {
   }, 1200);
 }
 
-if (location.hostname === "localhost" || /^\\d+\\.\\d+\\.\\d+\\.\\d+$/.test(location.hostname)) {
+if (location.hostname === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
   enableDevReload();
 }
