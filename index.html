@@ -7,13 +7,69 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <div class="magic-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
     <main class="app" aria-label="星月魔法学院">
       <section class="topbar">
-        <div>
+        <div class="hero-copy">
+          <svg class="academy-crest" viewBox="0 0 112 112" role="img" aria-label="星月魔法学院徽章">
+            <defs>
+              <linearGradient id="crestGem" x1="14" y1="10" x2="96" y2="104" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff5ff"/>
+                <stop offset="0.45" stop-color="#9c82ff"/>
+                <stop offset="1" stop-color="#4fc7ff"/>
+              </linearGradient>
+              <linearGradient id="crestGold" x1="28" y1="24" x2="84" y2="92" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff3b0"/>
+                <stop offset="1" stop-color="#d59a38"/>
+              </linearGradient>
+            </defs>
+            <path d="M56 6 95 22v31c0 25-15 43-39 53C32 96 17 78 17 53V22L56 6Z" fill="rgba(29, 22, 67, 0.82)" stroke="url(#crestGem)" stroke-width="3"/>
+            <path d="M65 24c-11 6-16 19-10 31 4 9 13 14 22 13-5 7-14 11-24 9-15-3-25-17-22-32 3-16 17-25 34-21Z" fill="url(#crestGold)"/>
+            <path d="m33 69 21-8 24 8-24 9-21-9Z" fill="#e9dcff" opacity="0.9"/>
+            <path d="M33 69v13l21 9 24-9V69l-24 9-21-9Z" fill="#7b65de"/>
+            <path d="M54 78v13" stroke="#d9efff" stroke-width="2"/>
+            <path d="M83 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7ZM33 26l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z" fill="#ffffff"/>
+          </svg>
           <p class="kicker">Moonlit Academy</p>
           <h1>星月魔法学院</h1>
           <p class="subtitle">从一名普通学徒成长为传奇大魔导师。</p>
         </div>
+
+        <figure class="student-portrait" aria-label="魔法学院女学徒占位图">
+          <svg viewBox="0 0 180 220" role="img" aria-label="手持魔杖的魔法学院女学徒">
+            <defs>
+              <linearGradient id="robe" x1="38" y1="88" x2="142" y2="214" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6d5de8"/>
+                <stop offset="1" stop-color="#1d3b72"/>
+              </linearGradient>
+              <linearGradient id="hair" x1="60" y1="34" x2="124" y2="124" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#5d376e"/>
+                <stop offset="1" stop-color="#201533"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="92" cy="204" rx="58" ry="10" fill="#090716" opacity="0.35"/>
+            <path d="M69 92c-30 22-35 66-40 108h126c-7-45-12-83-42-108H69Z" fill="url(#robe)"/>
+            <path d="M55 104c-18 18-26 42-32 70l20 5c5-24 13-43 28-57l-16-18Z" fill="#2b245c"/>
+            <path d="M125 108c17 13 28 31 38 55l-18 8c-9-21-19-35-34-46l14-17Z" fill="#2b245c"/>
+            <path d="M138 62 95 11 52 62h86Z" fill="#282055" stroke="#c8b7ff" stroke-width="3"/>
+            <path d="M70 49c13-9 33-9 48 0l-9 63H78L70 49Z" fill="url(#hair)"/>
+            <circle cx="94" cy="82" r="29" fill="#ffd8c7"/>
+            <path d="M67 75c6-25 47-29 57 2-16-7-37-7-57-2Z" fill="url(#hair)"/>
+            <path d="M84 87c4 4 15 4 19 0" fill="none" stroke="#7b4567" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="83" cy="78" r="3" fill="#342041"/>
+            <circle cx="106" cy="78" r="3" fill="#342041"/>
+            <path d="M90 113h10l9 33-15 22-15-22 11-33Z" fill="#f6e9ff"/>
+            <path d="M150 50l4 9 9 4-9 4-4 9-4-9-9-4 9-4 4-9Z" fill="#ffffff"/>
+            <path d="M137 132 164 55" stroke="#f7dc91" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="165" cy="52" r="7" fill="#f4ddff" opacity="0.95"/>
+          </svg>
+        </figure>
+
         <button id="saveButton" class="icon-button" type="button" aria-label="保存">
           <span aria-hidden="true">S</span>
         </button>
@@ -21,10 +77,24 @@
 
       <section class="resource-panel">
         <div class="resource-readout">
-          <span class="label">魔力</span>
+          <span class="label resource-label">
+            <svg class="mana-icon" viewBox="0 0 40 40" aria-hidden="true">
+              <defs>
+                <radialGradient id="manaGlow" cx="50%" cy="42%" r="62%">
+                  <stop stop-color="#ffffff"/>
+                  <stop offset="0.42" stop-color="#b7e7ff"/>
+                  <stop offset="1" stop-color="#7a65ff"/>
+                </radialGradient>
+              </defs>
+              <circle cx="20" cy="20" r="13" fill="url(#manaGlow)"/>
+              <path d="m20 6 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#fff8ff" opacity="0.85"/>
+              <circle cx="20" cy="20" r="17" fill="none" stroke="#d9efff" stroke-width="2" opacity="0.6"/>
+            </svg>
+            魔力
+          </span>
           <strong id="dustCount">0</strong>
           <span id="dustRate">+0 / 秒</span>
-          <span class="rank">当前身份：<strong id="rankTitle">魔法学徒</strong></span>
+          <span class="rank">当前身份：<strong id="rankTitle" class="rank-badge rank-apprentice">魔法学徒</strong></span>
         </div>
         <button id="tapButton" class="tap-button" type="button">
           <span>练习魔法</span>

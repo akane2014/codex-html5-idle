@@ -49,6 +49,14 @@ function rankTitle() {
   return "魔法学徒";
 }
 
+function rankClass() {
+  if (state.dust >= 10000) return "rank-badge rank-archmage";
+  if (state.dust >= 2000) return "rank-badge rank-senior";
+  if (state.dust >= 500) return "rank-badge rank-mage";
+  if (state.dust >= 100) return "rank-badge rank-initiate";
+  return "rank-badge rank-apprentice";
+}
+
 function format(value) {
   if (value < 1000) return Math.floor(value).toString();
   if (value < 1000000) return `${(value / 1000).toFixed(1)}K`;
@@ -83,6 +91,7 @@ function render() {
   els.dustCount.textContent = format(state.dust);
   els.dustRate.textContent = `+${dustPerSecond().toFixed(1)} / 秒`;
   els.rankTitle.textContent = rankTitle();
+  els.rankTitle.className = rankClass();
   els.tapPower.textContent = `+${tapPower()} 魔力`;
   els.collectorCost.textContent = `招募 ${format(nextCollectorCost)}`;
   els.collectorOwned.textContent = `${state.collectors} 名`;
