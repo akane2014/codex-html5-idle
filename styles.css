@@ -252,8 +252,14 @@ h1 {
   }
 }
 
-.resource-readout {
+.resource-grid {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, 32%);
+  gap: 12px;
+}
+
+.resource-readout {
   display: grid;
   gap: 7px;
 }
@@ -281,12 +287,35 @@ small {
   filter: drop-shadow(0 0 10px rgba(141, 218, 255, 0.62));
 }
 
+.research-readout {
+  align-content: center;
+  min-height: 132px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 248, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(221, 211, 255, 0.12), 0 0 22px rgba(119, 103, 255, 0.12);
+}
+
+.research-icon {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 10px rgba(210, 191, 255, 0.52));
+}
+
 #manaCount {
   color: #fff8ff;
   font-size: clamp(46px, 17vw, 90px);
   line-height: 0.92;
   overflow-wrap: anywhere;
   text-shadow: 0 0 26px rgba(183, 221, 255, 0.5);
+}
+
+#researchCount {
+  color: #f7edff;
+  font-size: clamp(30px, 8vw, 46px);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+  text-shadow: 0 0 20px rgba(205, 180, 255, 0.42);
 }
 
 .rank {
@@ -483,5 +512,13 @@ small {
 
   .shop-item {
     grid-template-columns: 1fr;
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .research-readout {
+    min-height: 96px;
   }
 }

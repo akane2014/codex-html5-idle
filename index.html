@@ -76,25 +76,41 @@
       </section>
 
       <section class="resource-panel">
-        <div class="resource-readout">
-          <span class="label resource-label">
-            <svg class="mana-icon" viewBox="0 0 40 40" aria-hidden="true">
-              <defs>
-                <radialGradient id="manaGlow" cx="50%" cy="42%" r="62%">
-                  <stop stop-color="#ffffff"/>
-                  <stop offset="0.42" stop-color="#b7e7ff"/>
-                  <stop offset="1" stop-color="#7a65ff"/>
-                </radialGradient>
-              </defs>
-              <circle cx="20" cy="20" r="13" fill="url(#manaGlow)"/>
-              <path d="m20 6 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#fff8ff" opacity="0.85"/>
-              <circle cx="20" cy="20" r="17" fill="none" stroke="#d9efff" stroke-width="2" opacity="0.6"/>
-            </svg>
-            魔力
-          </span>
-          <strong id="manaCount">0</strong>
-          <span id="manaRate">+0 / 秒</span>
-          <span class="rank">当前身份：<strong id="rankTitle" class="rank-badge rank-apprentice">魔法学徒</strong></span>
+        <div class="resource-grid">
+          <div class="resource-readout mana-readout">
+            <span class="label resource-label">
+              <svg class="mana-icon" viewBox="0 0 40 40" aria-hidden="true">
+                <defs>
+                  <radialGradient id="manaGlow" cx="50%" cy="42%" r="62%">
+                    <stop stop-color="#ffffff"/>
+                    <stop offset="0.42" stop-color="#b7e7ff"/>
+                    <stop offset="1" stop-color="#7a65ff"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="20" cy="20" r="13" fill="url(#manaGlow)"/>
+                <path d="m20 6 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#fff8ff" opacity="0.85"/>
+                <circle cx="20" cy="20" r="17" fill="none" stroke="#d9efff" stroke-width="2" opacity="0.6"/>
+              </svg>
+              魔力
+            </span>
+            <strong id="manaCount">0</strong>
+            <span id="manaRate">+0 / 秒</span>
+            <span class="rank">当前身份：<strong id="rankTitle" class="rank-badge rank-apprentice">魔法学徒</strong></span>
+          </div>
+
+          <div class="resource-readout research-readout">
+            <span class="label resource-label">
+              <svg class="research-icon" viewBox="0 0 40 40" aria-hidden="true">
+                <path d="M10 8h13c4 0 7 3 7 7v17H16c-3 0-6-3-6-6V8Z" fill="#e7ddff" opacity="0.94"/>
+                <path d="M14 12h9c2 0 4 2 4 4v12H16c-1 0-2-1-2-2V12Z" fill="#6754d8"/>
+                <path d="M18 17h6M18 22h6" stroke="#d9efff" stroke-width="2" stroke-linecap="round"/>
+                <path d="m29 5 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z" fill="#ffffff"/>
+              </svg>
+              研究点数
+            </span>
+            <strong id="researchCount">0</strong>
+            <span>魔法书系统资源</span>
+          </div>
         </div>
         <button id="tapButton" class="tap-button" type="button">
           <span>练习魔法</span>

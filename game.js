@@ -1,5 +1,6 @@
 const state = {
   mana: 0,
+  researchPoints: 0,
   apprentices: 0,
   wandLevel: 0,
   lastSeen: Date.now()
@@ -8,6 +9,7 @@ const state = {
 const els = {
   manaCount: document.querySelector("#manaCount"),
   manaRate: document.querySelector("#manaRate"),
+  researchCount: document.querySelector("#researchCount"),
   rankTitle: document.querySelector("#rankTitle"),
   tapPower: document.querySelector("#tapPower"),
   tapButton: document.querySelector("#tapButton"),
@@ -90,6 +92,7 @@ function render() {
 
   els.manaCount.textContent = format(state.mana);
   els.manaRate.textContent = `+${manaPerSecond().toFixed(1)} / 秒`;
+  els.researchCount.textContent = format(state.researchPoints);
   els.rankTitle.textContent = rankTitle();
   els.rankTitle.className = rankClass();
   els.tapPower.textContent = `+${practicePower()} 魔力`;
@@ -138,6 +141,7 @@ els.resetButton.addEventListener("click", () => {
   if (!confirm("确定重置当前存档？")) return;
   localStorage.removeItem(storageKey);
   state.mana = 0;
+  state.researchPoints = 0;
   state.apprentices = 0;
   state.wandLevel = 0;
   state.lastSeen = Date.now();
