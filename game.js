@@ -1,59 +1,59 @@
 const state = {
-  dust: 0,
-  collectors: 0,
-  gloveLevel: 0,
+  mana: 0,
+  apprentices: 0,
+  wandLevel: 0,
   lastSeen: Date.now()
 };
 
 const els = {
-  dustCount: document.querySelector("#dustCount"),
-  dustRate: document.querySelector("#dustRate"),
+  manaCount: document.querySelector("#manaCount"),
+  manaRate: document.querySelector("#manaRate"),
   rankTitle: document.querySelector("#rankTitle"),
   tapPower: document.querySelector("#tapPower"),
   tapButton: document.querySelector("#tapButton"),
-  collectorButton: document.querySelector("#collectorButton"),
-  collectorCost: document.querySelector("#collectorCost"),
-  collectorOwned: document.querySelector("#collectorOwned"),
-  gloveButton: document.querySelector("#gloveButton"),
-  gloveCost: document.querySelector("#gloveCost"),
-  gloveLevel: document.querySelector("#gloveLevel"),
+  apprenticeButton: document.querySelector("#apprenticeButton"),
+  apprenticeCost: document.querySelector("#apprenticeCost"),
+  apprenticeOwned: document.querySelector("#apprenticeOwned"),
+  wandButton: document.querySelector("#wandButton"),
+  wandCost: document.querySelector("#wandCost"),
+  wandLevel: document.querySelector("#wandLevel"),
   offlineGain: document.querySelector("#offlineGain"),
   saveButton: document.querySelector("#saveButton"),
   resetButton: document.querySelector("#resetButton")
 };
 
-const storageKey = "stardust-idle-save-v1";
+const storageKey = "moonlit-academy-save-v1";
 let lastTick = performance.now();
 
-function collectorCost() {
-  return Math.floor(15 * Math.pow(1.22, state.collectors));
+function apprenticeCost() {
+  return Math.floor(15 * Math.pow(1.22, state.apprentices));
 }
 
-function gloveCost() {
-  return Math.floor(50 * Math.pow(1.65, state.gloveLevel));
+function wandCost() {
+  return Math.floor(50 * Math.pow(1.65, state.wandLevel));
 }
 
-function tapPower() {
-  return 1 + state.gloveLevel;
+function practicePower() {
+  return 1 + state.wandLevel;
 }
 
-function dustPerSecond() {
-  return state.collectors * 0.4;
+function manaPerSecond() {
+  return state.apprentices * 0.4;
 }
 
 function rankTitle() {
-  if (state.dust >= 10000) return "大魔导师";
-  if (state.dust >= 2000) return "高级法师";
-  if (state.dust >= 500) return "正式法师";
-  if (state.dust >= 100) return "见习法师";
+  if (state.mana >= 10000) return "大魔导师";
+  if (state.mana >= 2000) return "高级法师";
+  if (state.mana >= 500) return "正式法师";
+  if (state.mana >= 100) return "见习法师";
   return "魔法学徒";
 }
 
 function rankClass() {
-  if (state.dust >= 10000) return "rank-badge rank-archmage";
-  if (state.dust >= 2000) return "rank-badge rank-senior";
-  if (state.dust >= 500) return "rank-badge rank-mage";
-  if (state.dust >= 100) return "rank-badge rank-initiate";
+  if (state.mana >= 10000) return "rank-badge rank-archmage";
+  if (state.mana >= 2000) return "rank-badge rank-senior";
+  if (state.mana >= 500) return "rank-badge rank-mage";
+  if (state.mana >= 100) return "rank-badge rank-initiate";
   return "rank-badge rank-apprentice";
 }
 
@@ -76,8 +76,8 @@ function load() {
     const saved = JSON.parse(raw);
     Object.assign(state, saved);
     const secondsAway = Math.max(0, (Date.now() - (saved.lastSeen || Date.now())) / 1000);
-    const gain = Math.min(secondsAway, 60 * 60 * 6) * dustPerSecond();
-    state.dust += gain;
+    const gain = Math.min(secondsAway, 60 * 60 * 6) * manaPerSecond();
+    state.mana += gain;
     els.offlineGain.textContent = `+${format(gain)} 魔力`;
   } catch {
     localStorage.removeItem(storageKey);
@@ -85,43 +85,43 @@ function load() {
 }
 
 function render() {
-  const nextCollectorCost = collectorCost();
-  const nextGloveCost = gloveCost();
+  const nextApprenticeCost = apprenticeCost();
+  const nextWandCost = wandCost();
 
-  els.dustCount.textContent = format(state.dust);
-  els.dustRate.textContent = `+${dustPerSecond().toFixed(1)} / 秒`;
+  els.manaCount.textContent = format(state.mana);
+  els.manaRate.textContent = `+${manaPerSecond().toFixed(1)} / 秒`;
   els.rankTitle.textContent = rankTitle();
   els.rankTitle.className = rankClass();
-  els.tapPower.textContent = `+${tapPower()} 魔力`;
-  els.collectorCost.textContent = `招募 ${format(nextCollectorCost)}`;
-  els.collectorOwned.textContent = `${state.collectors} 名`;
-  els.gloveCost.textContent = `升级 ${format(nextGloveCost)}`;
-  els.gloveLevel.textContent = `等级 ${state.gloveLevel}`;
-  els.collectorButton.disabled = state.dust < nextCollectorCost;
-  els.gloveButton.disabled = state.dust < nextGloveCost;
+  els.tapPower.textContent = `+${practicePower()} 魔力`;
+  els.apprenticeCost.textContent = `招募 ${format(nextApprenticeCost)}`;
+  els.apprenticeOwned.textContent = `${state.apprentices} 名`;
+  els.wandCost.textContent = `升级 ${format(nextWandCost)}`;
+  els.wandLevel.textContent = `等级 ${state.wandLevel}`;
+  els.apprenticeButton.disabled = state.mana < nextApprenticeCost;
+  els.wandButton.disabled = state.mana < nextWandCost;
 }
 
-function spend(cost) {
-  if (state.dust < cost) return false;
-  state.dust -= cost;
+function spendMana(cost) {
+  if (state.mana < cost) return false;
+  state.mana -= cost;
   return true;
 }
 
 els.tapButton.addEventListener("click", () => {
-  state.dust += tapPower();
+  state.mana += practicePower();
   render();
 });
 
-els.collectorButton.addEventListener("click", () => {
-  if (!spend(collectorCost())) return;
-  state.collectors += 1;
+els.apprenticeButton.addEventListener("click", () => {
+  if (!spendMana(apprenticeCost())) return;
+  state.apprentices += 1;
   render();
   save();
 });
 
-els.gloveButton.addEventListener("click", () => {
-  if (!spend(gloveCost())) return;
-  state.gloveLevel += 1;
+els.wandButton.addEventListener("click", () => {
+  if (!spendMana(wandCost())) return;
+  state.wandLevel += 1;
   render();
   save();
 });
@@ -137,9 +137,9 @@ els.saveButton.addEventListener("click", () => {
 els.resetButton.addEventListener("click", () => {
   if (!confirm("确定重置当前存档？")) return;
   localStorage.removeItem(storageKey);
-  state.dust = 0;
-  state.collectors = 0;
-  state.gloveLevel = 0;
+  state.mana = 0;
+  state.apprentices = 0;
+  state.wandLevel = 0;
   state.lastSeen = Date.now();
   els.offlineGain.textContent = "0";
   render();
@@ -148,7 +148,7 @@ els.resetButton.addEventListener("click", () => {
 function tick(now) {
   const delta = (now - lastTick) / 1000;
   lastTick = now;
-  state.dust += dustPerSecond() * delta;
+  state.mana += manaPerSecond() * delta;
   render();
   requestAnimationFrame(tick);
 }
