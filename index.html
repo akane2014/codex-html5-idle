@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>星尘工坊 Idle</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app" aria-label="星尘工坊">
+      <section class="topbar">
+        <div>
+          <p class="kicker">Idle Prototype</p>
+          <h1>星尘工坊</h1>
+        </div>
+        <button id="saveButton" class="icon-button" type="button" aria-label="保存">
+          <span aria-hidden="true">S</span>
+        </button>
+      </section>
+
+      <section class="resource-panel">
+        <div class="resource-readout">
+          <span class="label">星尘</span>
+          <strong id="dustCount">0</strong>
+          <span id="dustRate">+0 / 秒</span>
+        </div>
+        <button id="tapButton" class="tap-button" type="button">
+          <span>采集</span>
+          <small id="tapPower">+1 星尘</small>
+        </button>
+      </section>
+
+      <section class="shop" aria-label="升级">
+        <article class="shop-item">
+          <div>
+            <h2>自动采集器</h2>
+            <p>持续产出星尘。</p>
+          </div>
+          <button id="collectorButton" type="button">
+            <span id="collectorCost">购买 15</span>
+            <small id="collectorOwned">0 台</small>
+          </button>
+        </article>
+
+        <article class="shop-item">
+          <div>
+            <h2>能量手套</h2>
+            <p>提高每次点击收益。</p>
+          </div>
+          <button id="gloveButton" type="button">
+            <span id="gloveCost">升级 50</span>
+            <small id="gloveLevel">等级 0</small>
+          </button>
+        </article>
+      </section>
+
+      <section class="status">
+        <div>
+          <span>离线收益</span>
+          <strong id="offlineGain">0</strong>
+        </div>
+        <button id="resetButton" class="subtle" type="button">重置</button>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
