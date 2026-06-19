@@ -202,6 +202,7 @@ h1 {
 }
 
 .resource-panel,
+.study-card,
 .shop-item,
 .status {
   position: relative;
@@ -219,6 +220,7 @@ h1 {
 }
 
 .resource-panel::before,
+.study-card::before,
 .shop-item::before,
 .status::before {
   content: "";
@@ -407,6 +409,45 @@ small {
   transform: translateY(2px) scale(0.985);
 }
 
+.study-card {
+  display: grid;
+  grid-template-columns: 1fr minmax(148px, 40%);
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+}
+
+.study-card > * {
+  position: relative;
+}
+
+.study-card h2 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+
+.study-card p {
+  color: #cbd4ff;
+}
+
+.study-card button {
+  min-height: 58px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #f4e9ff, #c9d8ff);
+  color: #1c1642;
+  display: grid;
+  gap: 3px;
+  align-content: center;
+  font-weight: 800;
+  box-shadow: 0 0 18px rgba(183, 155, 255, 0.26);
+}
+
+.study-card button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .shop {
   display: grid;
   gap: 12px;
@@ -477,6 +518,7 @@ small {
 @media (prefers-reduced-motion: reduce) {
   .magic-particles span,
   .resource-panel::before,
+  .study-card::before,
   .shop-item::before,
   .status::before {
     animation: none;
@@ -510,6 +552,7 @@ small {
     height: 40px;
   }
 
+  .study-card,
   .shop-item {
     grid-template-columns: 1fr;
   }

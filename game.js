@@ -13,6 +13,9 @@ const els = {
   rankTitle: document.querySelector("#rankTitle"),
   tapPower: document.querySelector("#tapPower"),
   tapButton: document.querySelector("#tapButton"),
+  studyButton: document.querySelector("#studyButton"),
+  studyCost: document.querySelector("#studyCost"),
+  studyReward: document.querySelector("#studyReward"),
   apprenticeButton: document.querySelector("#apprenticeButton"),
   apprenticeCost: document.querySelector("#apprenticeCost"),
   apprenticeOwned: document.querySelector("#apprenticeOwned"),
@@ -41,6 +44,14 @@ function practicePower() {
 
 function manaPerSecond() {
   return state.apprentices * 0.4;
+}
+
+function studyMagicBookCost() {
+  return 100;
+}
+
+function studyMagicBookReward() {
+  return 1;
 }
 
 function rankTitle() {
@@ -89,6 +100,8 @@ function load() {
 function render() {
   const nextApprenticeCost = apprenticeCost();
   const nextWandCost = wandCost();
+  const nextStudyCost = studyMagicBookCost();
+  const nextStudyReward = studyMagicBookReward();
 
   els.manaCount.textContent = format(state.mana);
   els.manaRate.textContent = `+${manaPerSecond().toFixed(1)} / 秒`;
@@ -96,10 +109,13 @@ function render() {
   els.rankTitle.textContent = rankTitle();
   els.rankTitle.className = rankClass();
   els.tapPower.textContent = `+${practicePower()} 魔力`;
+  els.studyCost.textContent = `消耗 ${format(nextStudyCost)} 魔力`;
+  els.studyReward.textContent = `获得 ${format(nextStudyReward)} 研究点数`;
   els.apprenticeCost.textContent = `招募 ${format(nextApprenticeCost)}`;
   els.apprenticeOwned.textContent = `${state.apprentices} 名`;
   els.wandCost.textContent = `升级 ${format(nextWandCost)}`;
   els.wandLevel.textContent = `等级 ${state.wandLevel}`;
+  els.studyButton.disabled = state.mana < nextStudyCost;
   els.apprenticeButton.disabled = state.mana < nextApprenticeCost;
   els.wandButton.disabled = state.mana < nextWandCost;
 }
@@ -113,6 +129,13 @@ function spendMana(cost) {
 els.tapButton.addEventListener("click", () => {
   state.mana += practicePower();
   render();
+});
+
+els.studyButton.addEventListener("click", () => {
+  if (!spendMana(studyMagicBookCost())) return;
+  state.researchPoints += studyMagicBookReward();
+  render();
+  save();
 });
 
 els.apprenticeButton.addEventListener("click", () => {
